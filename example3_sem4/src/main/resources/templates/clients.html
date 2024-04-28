@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Журнал</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2; /* Серый фон */
+            margin: 0; /* Убираем отступы по умолчанию */
+            padding: 0; /* Убираем отступы по умолчанию */
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        h2 {
+            color: #666;
+            text-align: center;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        input[type="text"], input[type="tel"], select {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button[type="submit"] {
+            width: 100%;
+            padding: 10px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 25px;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+<h1>Клиенты</h1>
+<h2>СПИСКИ КЛИЕНТОВ</h2>
+
+<table>
+    <tr>
+        <th>ФИО</th>
+        <th>АДРЕС</th>
+        <th>ТЕЛЕФОН</th>
+        <th>СТАТУС</th>
+    </tr>
+    <tr th:each="p: ${clients}">
+        <td th:text="${p.name}"></td>
+        <td th:text="${p.address}"></td>
+        <td th:text="${p.tel}"></td>
+        <td th:text="${p.status}"></td> <!-- Отображаем статус продукта -->
+    </tr>
+</table>
+
+<h2>Создать клиента</h2>
+<form action="/clients" method="post">
+    Введите имя: <input type="text" name="name"><br />
+    Введите адрес: <input type="text" step="any" name="address"><br />
+    Введите телефон: <input type="tel" name="tel" pattern="[0-9]{11}" title="Введите 11 цифр без разделителей" required><br />
+    Выберите статус клиента:
+    <select name="status">
+        <option value="Расчет">Расчет</option>
+        <option value="В работе">В работе</option>
+        <option value="Думает">Думает</option>
+        <option value="Закрыт">Закрыт</option>
+    </select><br />
+    <button type="submit">Сохранить</button>
+</form>
+</body>
+</html>
